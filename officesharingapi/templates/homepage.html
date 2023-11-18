@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'homepagestyles.css' %}">
+    <title>Homepage</title>
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+</head>
+<body>
+    <h1>Account, {{ user_name }}!</h1>
+    <form method="post" enctype="multipart/form-data" onsubmit="disableButton()">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="uploadButton">Upload</button>
+    </form>
+    <button type="show" id="uploadButton" P>Show Files</button>
+
+
+ 
+    <script>
+        function disableButton() {
+            document.getElementById("uploadButton").disabled = true;
+        }
+    </script>
+
+    {% if upload_success %}
+    <h2>File List</h2>
+    <!-- Add DataTables HTML structure to the existing list -->
+    <table id="fileListTable">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Uploaded At</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in uploaded_files %}
+                <tr>
+                    <td>{{ file.file.name }}</td>
+                    <td>{{ file.uploaded_at }}</td>
+                    <!-- Add more columns as needed -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable on the table with the id 'fileListTable'
+            $('#fileListTable').DataTable();
+        });
+    </script>
+    {% endif %}
+
+    <!-- Other content of your homepage goes here -->
+</body>
+</html>

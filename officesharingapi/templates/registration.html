@@ -1,0 +1,49 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet"  href="{% static 'registrationstyles.css'%}">
+</head>
+<body>
+
+    <h1>Registration</h1>
+
+    <form method="post" action="{% url 'registration' %}">
+        {% csrf_token %}
+
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" id="id_name" required>
+        <br>
+
+        <label for="id_role">Role:</label>
+        <input type="text" name="role" id="id_role" required>
+        <br>
+
+        <label for="id_email">Email:</label>
+        <input type="email" name="email" id="id_email" required>
+        <br>
+
+        <label for="id_phone">Phone:</label>
+        <input type="text" name="phone" id="id_phone" required>
+        <br>
+
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" id="id_username" required>
+        <br>
+
+        <label for="id_password">Password:</label>
+        <input type="password" name="password" id="id_password" required>
+        <br>
+
+        <button type="submit">Register</button>
+    </form>
+    
+    <a href="{% url 'login' %}">Back to Login</a>
+
+
+</body>
+</html>
